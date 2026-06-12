@@ -865,7 +865,7 @@
                 <div class="action-buttons">
                     <a href="https://github.com/Zyad256/Graduation-Project/releases/download/v1.1.0+3/hanzihero.apk" class="btn-install" id="btn-download" onclick="startDownloadAnimation()">
                         <span class="material-symbols-outlined" id="btn-download-icon">download</span>
-                        <span id="btn-download-text">Download APK</span>
+                        <span id="btn-download-text">Download</span>
                     </a>
                     <button class="btn-share" onclick="sharePage()">
                         <span class="material-symbols-outlined">share</span>
@@ -919,6 +919,21 @@
                 <li>🗃️ <b>Spaced Repetition System (SRS)</b>: Optimize study intervals and track learning retention via Drift DB.</li>
                 <li>📊 <b>Gamification and Streaks</b>: Level up, track XP, maintain a daily login streak, and unlock achievements.</li>
                 <li>⚡ <b>Shorebird OTA Hotfixes</b>: Instantly receive patches and updates over-the-air!</li>
+            </ul>
+        </div>
+
+        <!-- What's New Section -->
+        <div class="whats-new-section" style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 32px; margin-bottom: 48px; box-shadow: 0 8px 32px rgba(0,0,0,0.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
+            <h2 class="section-title">What's new</h2>
+            <div class="version-info" style="display: flex; justify-content: space-between; margin-bottom: 16px; font-size: 14px; color: var(--text-secondary);">
+                <span>Version 1.1.0+3</span>
+                <span>Updated on Jun 12, 2026</span>
+            </div>
+            <ul style="list-style-type: none; padding-left: 0; color: var(--text-secondary); font-size: 15px; display: flex; flex-direction: column; gap: 10px;">
+                <li style="position: relative; padding-left: 20px;"><span style="position: absolute; left: 0; color: var(--google-green);">•</span> 🚀 <b>Shorebird OTA Integration</b>: Check for and download updates in the background.</li>
+                <li style="position: relative; padding-left: 20px;"><span style="position: absolute; left: 0; color: var(--google-green);">•</span> 🎯 <b>New NPC Dialogue</b>: Explore Old Town and interact with the Librarian NPC.</li>
+                <li style="position: relative; padding-left: 20px;"><span style="position: absolute; left: 0; color: var(--google-green);">•</span> ⚙️ <b>Programmatic Restart</b>: Auto-applies updates dynamically when clicking 'Restart' inside settings.</li>
+                <li style="position: relative; padding-left: 20px;"><span style="position: absolute; left: 0; color: var(--google-green);">•</span> 🛠️ <b>Bug Fixes</b>: Fixed Firestore caching issue and optimized SQLite query execution speed.</li>
             </ul>
         </div>
 
@@ -1192,7 +1207,7 @@
                 // Reset button style after 5 seconds
                 setTimeout(() => {
                     btnIcon.innerText = "download";
-                    btnText.innerText = "Download APK";
+                    btnText.innerText = "Download";
                 }, 5000);
             }, 1200);
         }
