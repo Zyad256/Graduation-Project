@@ -69,10 +69,16 @@
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 12px 24px;
+            padding: 16px 24px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: flex-start;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                justify-content: center;
+            }
         }
 
         .logo-section {
@@ -99,26 +105,6 @@
             font-weight: 700;
             color: var(--text-secondary);
             margin-left: -4px;
-        }
-
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 6px 12px;
-            width: 300px;
-            color: var(--text-secondary);
-        }
-
-        .search-bar input {
-            background: none;
-            border: none;
-            outline: none;
-            color: var(--text-primary);
-            margin-left: 8px;
-            width: 100%;
         }
 
         /* Main App Section */
@@ -483,6 +469,130 @@
         .footer-links a:hover {
             color: #ffffff;
         }
+
+        /* Lightbox Modal Style */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 11, 12, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            font-size: 36px;
+            color: var(--text-primary);
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+            z-index: 1010;
+        }
+
+        .lightbox-close:hover {
+            color: #ffffff;
+        }
+
+        .lightbox-prev, .lightbox-next {
+            font-size: 48px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+            z-index: 1010;
+            padding: 12px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .lightbox-prev:hover, .lightbox-next:hover {
+            color: #ffffff;
+            background-color: rgba(255,255,255,0.15);
+            transform: scale(1.1);
+        }
+
+        .lightbox-content-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 80%;
+            height: 100%;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.85);
+            object-fit: contain;
+            border: 1px solid rgba(255,255,255,0.1);
+            animation: zoomIn 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Responsiveness Overrides */
+        @media (max-width: 768px) {
+            main {
+                padding: 24px 16px;
+            }
+            .stats-grid {
+                justify-content: center;
+                gap: 16px;
+                width: 100%;
+            }
+            .stat-item {
+                min-width: 70px;
+            }
+            .stat-value {
+                font-size: 16px;
+            }
+            .stat-label {
+                font-size: 11px;
+            }
+            .lightbox {
+                padding: 12px;
+            }
+            .lightbox-prev, .lightbox-next {
+                font-size: 36px;
+                padding: 8px;
+            }
+            .lightbox-content-wrapper {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .screenshot-card {
+                width: 220px;
+                height: 391px;
+            }
+            .screenshot-card.landscape {
+                width: 320px;
+                height: 180px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -498,10 +608,6 @@
                     <path d="M278.2 266.2l73-78.2L89.1 38.8C73.9 30.1 60.3 31.2 52 40l226.2 226.2z" fill="#4CAF50"/>
                 </svg>
                 <span>Google Play</span>
-            </div>
-            <div class="search-bar">
-                <span class="material-symbols-outlined">search</span>
-                <input type="text" placeholder="Search apps" disabled>
             </div>
         </div>
     </header>
@@ -557,17 +663,17 @@
             <h2 class="section-title">Screenshots</h2>
             <div class="screenshots-container">
                 <!-- Large landscape banner -->
-                <div class="screenshot-card landscape">
+                <div class="screenshot-card landscape" onclick="openLightbox(0)" style="cursor: pointer;">
                     <img src="assets/images/readme_banner.png" alt="HanziHero Banner">
                 </div>
                 <!-- App Screenshots -->
-                <div class="screenshot-card">
+                <div class="screenshot-card" onclick="openLightbox(1)" style="cursor: pointer;">
                     <img src="assets/images/onboarding_master_new.png" alt="Onboarding Master Screen">
                 </div>
-                <div class="screenshot-card">
+                <div class="screenshot-card" onclick="openLightbox(2)" style="cursor: pointer;">
                     <img src="assets/images/onboarding_practice.png" alt="Onboarding Practice Screen">
                 </div>
-                <div class="screenshot-card">
+                <div class="screenshot-card" onclick="openLightbox(3)" style="cursor: pointer;">
                     <img src="assets/images/onboarding_progress.png" alt="Onboarding Progress Screen">
                 </div>
             </div>
@@ -626,5 +732,67 @@
         </div>
     </main>
 
+    <!-- Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox">
+        <span class="lightbox-close material-symbols-outlined" onclick="closeLightbox()">close</span>
+        <span class="lightbox-prev material-symbols-outlined" onclick="changeLightboxImage(-1)">chevron_left</span>
+        <div class="lightbox-content-wrapper">
+            <img id="lightbox-img" class="lightbox-img" src="" alt="Enlarged Screenshot">
+        </div>
+        <span class="lightbox-next material-symbols-outlined" onclick="changeLightboxImage(1)">chevron_right</span>
+    </div>
+
+    <!-- Lightbox Javascript -->
+    <script>
+        const screenshots = [
+            "assets/images/readme_banner.png",
+            "assets/images/onboarding_master_new.png",
+            "assets/images/onboarding_practice.png",
+            "assets/images/onboarding_progress.png"
+        ];
+        let currentImgIndex = 0;
+
+        function openLightbox(index) {
+            currentImgIndex = index;
+            const modal = document.getElementById("lightbox-modal");
+            const img = document.getElementById("lightbox-img");
+            img.src = screenshots[currentImgIndex];
+            modal.style.display = "flex";
+            document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+        }
+
+        function closeLightbox() {
+            const modal = document.getElementById("lightbox-modal");
+            modal.style.display = "none";
+            document.body.style.overflow = ""; // Restore scrolling
+        }
+
+        function changeLightboxImage(direction) {
+            currentImgIndex = (currentImgIndex + direction + screenshots.length) % screenshots.length;
+            const img = document.getElementById("lightbox-img");
+            img.src = screenshots[currentImgIndex];
+        }
+
+        // Close when clicking empty space
+        document.getElementById("lightbox-modal").addEventListener("click", function(event) {
+            if (event.target === this || event.target.classList.contains("lightbox-content-wrapper")) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener("keydown", function(event) {
+            const modal = document.getElementById("lightbox-modal");
+            if (modal.style.display === "flex") {
+                if (event.key === "ArrowLeft") {
+                    changeLightboxImage(-1);
+                } else if (event.key === "ArrowRight") {
+                    changeLightboxImage(1);
+                } else if (event.key === "Escape") {
+                    closeLightbox();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
