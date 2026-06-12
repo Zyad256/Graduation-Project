@@ -14,17 +14,19 @@
 
     <style>
         :root {
-            --bg-color: #0b0b0b;
-            --surface-color: #1e1e1f;
-            --surface-variant: #2d2d30;
-            --text-primary: #f1f1f1;
-            --text-secondary: #9aa0a6;
+            --bg-color: #0c0d0e;
+            --surface-color: #1a1c1e;
+            --surface-variant: #282a2d;
+            --text-primary: #f1f3f4;
+            --text-secondary: #bdc1c6;
             --google-blue: #8ab4f8;
-            --google-green: #01875f;
-            --google-green-hover: #00704e;
-            --border-color: #3c4043;
+            --google-green: #03a06e;
+            --google-green-hover: #02875c;
+            --border-color: #303134;
             --font-family-title: 'Product Sans', sans-serif;
             --font-family-body: 'Roboto', sans-serif;
+            --glass-bg: rgba(26, 28, 30, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * {
@@ -34,12 +36,14 @@
         }
 
         body {
-            background-color: var(--bg-color);
+            background: radial-gradient(circle at 80% 10%, rgba(3, 160, 110, 0.08), transparent 50%),
+                        radial-gradient(circle at 10% 80%, rgba(138, 180, 248, 0.05), transparent 50%),
+                        var(--bg-color);
             color: var(--text-primary);
             font-family: var(--font-family-body);
             -webkit-font-smoothing: antialiased;
-            line-height: 1.5;
-            padding-bottom: 80px;
+            line-height: 1.6;
+            padding-bottom: 120px;
         }
 
         a {
@@ -54,7 +58,9 @@
         /* Top Header Navbar */
         header {
             border-bottom: 1px solid var(--border-color);
-            background-color: var(--bg-color);
+            background-color: rgba(12, 13, 14, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -267,20 +273,26 @@
             background-color: var(--google-green);
             color: #ffffff;
             border: none;
-            padding: 12px 40px;
+            padding: 14px 48px;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 500;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            transition: background-color 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            gap: 10px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 12px rgba(3, 160, 110, 0.3);
         }
 
         .btn-install:hover {
             background-color: var(--google-green-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(3, 160, 110, 0.45);
+        }
+
+        .btn-install:active {
+            transform: translateY(0);
         }
 
         .device-info {
@@ -344,18 +356,26 @@
 
         .screenshot-card {
             flex: 0 0 auto;
-            width: 250px;
-            height: 444px;
-            border-radius: 16px;
+            width: 260px;
+            height: 462px;
+            border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             scroll-snap-align: start;
             background-color: var(--surface-color);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .screenshot-card.landscape {
-            width: 480px;
-            height: 270px;
+            width: 500px;
+            height: 281px;
+        }
+
+        .screenshot-card:hover {
+            transform: scale(1.025);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.55);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         .screenshot-card img {
@@ -366,25 +386,45 @@
 
         /* App Description Section */
         .app-description {
-            margin-bottom: 48px;
+            margin-bottom: 56px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .description-text {
             color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.6;
-            margin-bottom: 16px;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 20px;
         }
 
         .features-list {
-            margin-top: 16px;
+            margin-top: 20px;
             padding-left: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 12px;
+            list-style-type: none;
         }
 
         .features-list li {
             color: var(--text-secondary);
             font-size: 15px;
-            margin-bottom: 8px;
+            position: relative;
+            padding-left: 24px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--google-green);
+            font-weight: bold;
         }
 
         /* Technical Info Grid */
@@ -457,7 +497,7 @@
                     <path d="M278.2 267.3L52 493.5c8.3 8.8 21.9 9.9 37.1 1.2l262.3-149.2-73-78.2z" fill="#FF3D00"/>
                     <path d="M278.2 266.2l73-78.2L89.1 38.8C73.9 30.1 60.3 31.2 52 40l226.2 226.2z" fill="#4CAF50"/>
                 </svg>
-                <span>Google Play <span class="play-bold">(Alternative Distribution)</span></span>
+                <span>Google Play</span>
             </div>
             <div class="search-bar">
                 <span class="material-symbols-outlined">search</span>
